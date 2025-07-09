@@ -1,7 +1,7 @@
 # Machine Learning
 **NOVA School of Science and Technology (NOVA FCT) – 2024/2025**  
 **Final Grade:** 17.5   
-**Author:** 
+**Authors:** 
   - Ricardo Rodrigues (rf-rodrigues95)
   - Guilherme Antunes (gpantunes)
 
@@ -12,6 +12,10 @@ This project aims to predict survival time in multiple myeloma patients using **
 The project is structured into four major tasks, further subdivided as per the assignment specification. All relevant files for each task are clearly indicated.
 
 ---
+
+## Final report
+
+[See the PDF](./report/novafct-mlwinter24-final40  .pdf)
 
 ## 📂 Kaggle Competition
 
