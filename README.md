@@ -13,61 +13,53 @@ The project is structured into four major tasks, further subdivided as per the a
 
 ---
 
-## Task 1 – Setting the Baseline
-
+## Task 1 – Setting the Baseline  
 ### Task 1.1 – Data Preparation and Validation Pipeline  
 📄 **File**: `model_baseline.py`
 
-This step involved extensive data exploration using the `missingno` library. We visualized missing patterns using bar plots, matrix views, heatmaps, and dendrograms to understand the structure of missingness. We observed that dropping all rows with missing features or censored labels drastically reduces the available training data. Pairplots were created for the non-missing subset to understand feature-target relationships.
-
-We defined our feature matrix `X` and target vector `y`, and analyzed two validation strategies:
-- Train/validation/test split
-- Train/test split with cross-validation
-
-The second approach proved more data-efficient due to limited fully-observed uncensored samples. We defined a **custom cMSE loss** to evaluate performance on censored regression tasks.
-
+- Used missingno to visualize missing values in the dataset with bar plots, heatmaps, matrices, and dendrograms.
+- Dropped columns containing features with missing data and all censored or unlabeled data points.
+- Counted the number of remaining examples after filtering.
+- Generated pairplots between the remaining features and the survival time target.
+- Defined the feature matrix X and target vector y.
+- Compared train/validation/test splits with cross-validation to determine the most data-efficient validation procedure.
+- Implemented the censored Mean Squared Error (cMSE) as the evaluation metric.
+  
 ---
 
 ### Task 1.2 – Learn the Baseline Model  
 📄 **File**: `model_baseline.py`
 
-Using only complete, uncensored data, we implemented a **Linear Regression baseline** using a `Pipeline` with `StandardScaler`. The model was trained and validated using the previously established split.
+- Trained a baseline Linear Regression model on the uncensored, non-missing data.
+- Created a pipeline that includes a StandardScaler followed by the linear regressor.
+- Computed the cMSE and plotted the y versus ŷ predictions.
 
-Model evaluation included:
-- cMSE score on local validation
-- y vs ŷ scatter plots
-
-The resulting predictions were submitted to Kaggle as `baseline-submission-xx.csv`. We also compared local vs Kaggle evaluation to identify any validation mismatch, adjusting our strategy accordingly when needed.
+Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.
 
 ---
 
 ### Task 1.3 – Learn with the cMSE  
-📄 **File**: `cmse_rr.py`
+📄 **File**: `cmse.py`, `cmse_rr.py`
 
-In this phase, we:
-- Computed the gradient of the cMSE loss (handwritten derivation attached in slides).
-- Included censored but non-missing data in the training set.
-- Implemented **Gradient Descent** for optimizing the cMSE loss.
-- Introduced **Ridge and Lasso regularization** to control overfitting.
-- Evaluated the learned model via cMSE and y vs ŷ plots.
-- Submitted predictions to Kaggle as `cMSE-baseline-submission-xx.csv`.
+- Derived the analytical gradient of the cMSE loss function.
+- Included censored data (with known values) in training.
+- Implemented Gradient Descent manually using the derived gradient expression.
+- Added optional Lasso and Ridge regularization to the Gradient Descent implementation.
+
+Submitted predictions trained with cMSE to Kaggle under the format cMSE-baseline-submission-xx.csv.
 
 ---
 
-## Task 2 – Nonlinear Models
-
-### Task 2.1 – Model Development  
+## Task 2 – Nonlinear Models  
+### Task 2.1 – Development  
 📄 **File**: `knn.py`
 
-We extended our modeling efforts to **nonlinear models**, focusing on:
-- **Polynomial Regression** with varying degrees
-- **k-Nearest Neighbors Regression** with hyperparameter tuning (k-selection)
-
-Cross-validation was used to select hyperparameters using the same dataset prepared in Task 1.3, incorporating both censored and uncensored data.
+- Implemented functions for training Polynomial and k-Nearest Neighbors on the data prepared in Task 1.1. using the validation procedure determined in Task 1.1 and Task 1.2. Used the same data from task 1.3.
+- Selectd the model hyperparamenters, like the polynomial degree and the $k$ using cross validation for model selection.
 
 ---
 
-### Task 2.2 – Model Evaluation  
+### Task 2.2 – Evaluation  
 📄 **File**: `knn.py`
 
 We compared all nonlinear models to the baseline and cMSE-optimized linear model using:
@@ -80,47 +72,34 @@ The best-performing nonlinear model was submitted to Kaggle as `Nonlinear-submis
 ---
 
 ## Task 3 – Handling Missing Data
-
 ### Task 3.1 – Missing Data Imputation  
 📄 **File**: `task3_1.py`
 
-This task focused on handling missing feature values using supervised data only. We experimented with multiple imputation strategies:
-- `SimpleImputer` (mean strategy)
-- `KNNImputer`
-- `IterativeImputer`
-
-The imputers were fit only on labeled data, and their outputs were passed to our baseline Linear Regression model.
-
-Results were analyzed using:
-- cMSE scores
-- Comparison plots with and without imputation
-- Tables of performance across imputers
-
-The best imputation strategy was then used in downstream models (nonlinear models from Task 2 and tree models in Task 3.2).
+- Used Scikit-Learn's imputation techniques to complete missing data in the features.
+- Trained the baseline Linear Regression model on the imputed dataset.
+- Compared imputation strategies and selected the best one for reuse in later tasks.
+- Applied the best imputation strategy to nonlinear models from Task 2.
 
 ---
 
 ### Task 3.2 – Models That Handle Missing Data  
 📄 **Files**: `task3_2.py`, `task3_2-test.py`
 
-We explored models that **natively handle missing data**, without requiring imputation:
-- `HistGradientBoostingRegressor` from scikit-learn
-- `CatBoostRegressor` with the **Accelerated Failure Time (AFT)** objective for censored data
-
-Each model was validated using the same cMSE loss and compared against the imputation-based pipelines.
+Implemented models that natively handle missing values:
+- HistGradientBoostingRegressor from Scikit-Learn
+- CatBoostRegressor using the Accelerated Failure Time (AFT) loss
+ 
+Integrated CatBoost-specific survival regression setup using their official tutorial as reference.
 
 ---
 
 ### Task 3.3 – Evaluation  
 📄 **Files**: `task3_1.py`, `task3_2.py`
 
-We compared all missing-data strategies via:
-- y vs ŷ plots
-- cMSE scores
-- Summary tables (baseline vs imputation vs tree models)
-
-We also combined the best imputation strategy from Task 3.1 with the best tree model from Task 3.2 and evaluated its performance. The top model was submitted to Kaggle as `handle-missing-submission-xx.csv`.
-
+- Compared the models from Tasks 3.1 and 3.2 with the baseline.
+- Applied the best imputation strategy to the best tree-based model and reran training.
+- Submitted the best-performing predictions to Kaggle as handle-missing-submission-xx.csv.
+    
 ---
 
 ## Task 4 – Semi-Supervised Learning for Unlabeled Data
@@ -128,23 +107,20 @@ We also combined the best imputation strategy from Task 3.1 with the best tree m
 ### Task 4.1 – Imputation with Labeled and Unlabeled Data  
 📄 **File**: `task4.1.py`
 
-We leveraged the **unlabeled data** (samples with missing SurvivalTime) to improve feature representation. Steps included:
-- Re-training the best imputation model from Task 3.1 on both labeled + unlabeled data
-- Applying dimensionality reduction using **Isomap**, trained on the full (labeled + unlabeled) feature matrix
-- Wrapping the frozen Isomap transformer into a scikit-learn pipeline using `FrozenTransformer`
-- Training a Linear Regression model on the transformed features using only the labeled data
+- Refit the best imputers from Task 3.1 using both labeled and unlabeled features.
+- Trained a Linear Regression model on the labeled portion of the imputed dataset.
+- Trained an Isomap model for dimensionality reduction using both labeled and unlabeled examples.
+- Wrapped the fitted Isomap model using a custom FrozenTransformer class to allow integration into a Scikit-Learn pipeline.
+- Constructed a pipeline consisting of imputation, scaling, Isomap, and Linear Regression for final training.
 
 ---
 
 ### Task 4.2 – Evaluation  
 📄 **File**: `task4.1.py`
 
-We evaluated the performance of the semi-supervised pipeline by comparing:
-- cMSE to baseline and other Task 3 models
-- Visual diagnostics via scatter plots
-- Summary table of all prior methods
-
-The semi-supervised model's predictions were submitted as `semisupervised-submission-xx.csv`.
+- Compared the semi-supervised models with the baseline.
+- Reused the best imputation method from Task 3.1 with the best model from Task 3.2.
+- Submitted final semi-supervised predictions to Kaggle as semisupervised-submission-xx.csv.
 
 ---
 
