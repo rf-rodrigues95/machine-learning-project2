@@ -33,7 +33,8 @@ The project is structured into four major tasks, further subdivided as per the a
 Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.  
 
 ### Task 1.3 – Learn with the cMSE  
-📄 **File**: `cmse.py`, `cmse_rr.py`
+📄 **File**: `model_baseline.py`, `cmse.py` 
+**Note**: the file cmse.py was done to properly test the cmse before integrating in the baseline model
 
 - Derived the analytical gradient of the cMSE loss function.
 - Included censored data (with known values) in training.
