@@ -1,4 +1,10 @@
-# Machine Learning  
+# Machine Learning
+**NOVA School of Science and Technology (NOVA FCT) – 2024/2025**  
+**Final Grade:** 17.5   
+**Author:** 
+  - Ricardo Rodrigues (rf-rodrigues95)
+  - Guilherme Antunes (gpantunes)
+
 # Predicting Survival Time in Multiple Myeloma Patients (2024)
 
 This project aims to predict survival time in multiple myeloma patients using **semi-supervised learning**. We tackle challenges like **missing features**, **right-censored survival times**, and **unlabeled target variables**, all without using traditional survival analysis. Instead, we frame the problem as a **regression task** and use a wide array of machine learning models and techniques learned throughout the course.
