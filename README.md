@@ -33,7 +33,7 @@ The project is structured into four major tasks, further subdivided as per the a
 Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.  
 
 ### Task 1.3 – Learn with the cMSE  
-📄 **File**: `model_baseline.py`, `cmse.py` 
+📄 **File**: `model_baseline.py`, `cmse.py`   
 **Note**: the file cmse.py was done to properly test the cmse before integrating in the baseline model
 
 - Derived the analytical gradient of the cMSE loss function.
@@ -75,6 +75,7 @@ The best-performing nonlinear model was submitted to Kaggle as `Nonlinear-submis
 
 ### Task 3.2 – Models That Handle Missing Data  
 📄 **Files**: `task3_2.py`, `task3_2-test.py`
+**Note**: File `task3_2-test.py` evaluates multiple tree-based configs, the best are selected to be used in `task3_2.py`
 
 Implemented models that natively handle missing values:
 - HistGradientBoostingRegressor from Scikit-Learn
