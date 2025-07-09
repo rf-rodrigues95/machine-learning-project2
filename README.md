@@ -15,7 +15,7 @@ The project is structured into four major tasks, further subdivided as per the a
 
 ## Final report
 
-[See the PDF](./report/novafct-mlwinter24-final40 .pdf)
+[See the PDF](./report/novafct-mlwinter24-final40.pdf)
 
 ## 📂 Kaggle Competition
 
