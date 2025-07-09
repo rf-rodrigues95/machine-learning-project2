@@ -10,13 +10,13 @@ This project aims to predict survival time in multiple myeloma patients using **
 
 ```plaintext
 .
-├── datasets/                      # Directory with raw and provided datasets
-├── cleaned_train.csv             # Preprocessed training data (non-censored, no missing features)
+├── datasets/                     # Directory with raw and provided datasets
+├── cleaned_train.csv             # Preprocessed training data (no missing features)
 ├── cmse_rr/                      # Custom gradient descent training using cMSE loss with regularization
 ├── knn/                          # Code for K-Nearest Neighbors model
-├── model_baseline/              # Baseline Linear Regression (drop censored & missing)
-├── model_baseline_rr/           # Improved baseline with imputed missing data
+├── model_baseline/               # Baseline Linear Regression (drop censored & missing)
+├── model_baseline_rr/            # Improved baseline with imputed missing data
 ├── task3_2-test/                 # Evaluation of multiple tree-based configs
-├── task3_2/                      # Final tree-based model with best configuration
+├── task3_2/                      # Final tree-based models with best configuration
 ├── Task4.1/                      # Semi-supervised Isomap dimensionality reduction
 ├── README.md                     # You're here!
