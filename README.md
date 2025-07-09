@@ -30,11 +30,11 @@ The project is structured into four major tasks, further subdivided as per the a
 - Created a pipeline that includes a StandardScaler followed by the linear regressor.
 - Computed the cMSE and plotted the y versus ŷ predictions.
 
-Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.  
+Submitted the baseline predictions to Kaggle in the specified format the format baseline-submission-xx.csv.  
 
 ### Task 1.3 – Learn with the cMSE  
-📄 **File**: `model_baseline.py`, `cmse.py`   
-**Note**: the file cmse.py was done to properly test the cmse before integrating in the baseline model
+📄 **File**: `model_baseline.py`, `cmse.py`     
+**Note**: The file `cmse.py` was created to independently implement and test the cMSE loss function before integrating it into the baseline model pipeline.
 
 - Derived the analytical gradient of the cMSE loss function.
 - Included censored data (with known values) in training.
