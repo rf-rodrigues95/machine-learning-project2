@@ -11,8 +11,6 @@ The project is structured into four major tasks, further subdivided as per the a
 
 **Competition Link**: [ML Nova 2024 – Multiple myeloma survival](https://www.kaggle.com/competitions/machine-learning-nova-multiple-myeloma-survival)
 
----
-
 ## Task 1 – Setting the Baseline  
 ### Task 1.1 – Data Preparation and Validation Pipeline  
 📄 **File**: `model_baseline.py`
@@ -24,8 +22,6 @@ The project is structured into four major tasks, further subdivided as per the a
 - Defined the feature matrix X and target vector y.
 - Compared train/validation/test splits with cross-validation to determine the most data-efficient validation procedure.
 - Implemented the censored Mean Squared Error (cMSE) as the evaluation metric.
-  
----
 
 ### Task 1.2 – Learn the Baseline Model  
 📄 **File**: `model_baseline.py`
@@ -34,9 +30,7 @@ The project is structured into four major tasks, further subdivided as per the a
 - Created a pipeline that includes a StandardScaler followed by the linear regressor.
 - Computed the cMSE and plotted the y versus ŷ predictions.
 
-Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.
-
----
+Submitted the baseline predictions to Kaggle using the format baseline-submission-xx.csv.  
 
 ### Task 1.3 – Learn with the cMSE  
 📄 **File**: `cmse.py`, `cmse_rr.py`
@@ -55,9 +49,7 @@ Submitted predictions trained with cMSE to Kaggle under the format cMSE-baseline
 📄 **File**: `knn.py`
 
 - Implemented functions for training Polynomial and k-Nearest Neighbors on the data prepared in Task 1.1. using the validation procedure determined in Task 1.1 and Task 1.2. Used the same data from task 1.3.
-- Selectd the model hyperparamenters, like the polynomial degree and the $k$ using cross validation for model selection.
-
----
+- Selectd the model hyperparamenters, like the polynomial degree and the $k$ using cross validation for model selection.  
 
 ### Task 2.2 – Evaluation  
 📄 **File**: `knn.py`
@@ -78,9 +70,7 @@ The best-performing nonlinear model was submitted to Kaggle as `Nonlinear-submis
 - Used Scikit-Learn's imputation techniques to complete missing data in the features.
 - Trained the baseline Linear Regression model on the imputed dataset.
 - Compared imputation strategies and selected the best one for reuse in later tasks.
-- Applied the best imputation strategy to nonlinear models from Task 2.
-
----
+- Applied the best imputation strategy to nonlinear models from Task 2.  
 
 ### Task 3.2 – Models That Handle Missing Data  
 📄 **Files**: `task3_2.py`, `task3_2-test.py`
@@ -89,9 +79,7 @@ Implemented models that natively handle missing values:
 - HistGradientBoostingRegressor from Scikit-Learn
 - CatBoostRegressor using the Accelerated Failure Time (AFT) loss
  
-Integrated CatBoost-specific survival regression setup using their official tutorial as reference.
-
----
+Integrated CatBoost-specific survival regression setup using their official tutorial as reference.  
 
 ### Task 3.3 – Evaluation  
 📄 **Files**: `task3_1.py`, `task3_2.py`
@@ -103,7 +91,6 @@ Integrated CatBoost-specific survival regression setup using their official tuto
 ---
 
 ## Task 4 – Semi-Supervised Learning for Unlabeled Data
-
 ### Task 4.1 – Imputation with Labeled and Unlabeled Data  
 📄 **File**: `task4.1.py`
 
@@ -111,9 +98,7 @@ Integrated CatBoost-specific survival regression setup using their official tuto
 - Trained a Linear Regression model on the labeled portion of the imputed dataset.
 - Trained an Isomap model for dimensionality reduction using both labeled and unlabeled examples.
 - Wrapped the fitted Isomap model using a custom FrozenTransformer class to allow integration into a Scikit-Learn pipeline.
-- Constructed a pipeline consisting of imputation, scaling, Isomap, and Linear Regression for final training.
-
----
+- Constructed a pipeline consisting of imputation, scaling, Isomap, and Linear Regression for final training.  
 
 ### Task 4.2 – Evaluation  
 📄 **File**: `task4.1.py`
