@@ -80,7 +80,7 @@ The best-performing nonlinear model was submitted to Kaggle as `Nonlinear-submis
 - Applied the best imputation strategy to nonlinear models from Task 2.  
 
 ### Task 3.2 – Models That Handle Missing Data  
-📄 **Files**: `task3_2.py`, `task3_2-test.py`
+📄 **Files**: `task3_2.py`, `task3_2-test.py`  
 **Note**: File `task3_2-test.py` evaluates multiple tree-based configs, the best are selected to be used in `task3_2.py`
 
 Implemented models that natively handle missing values:
